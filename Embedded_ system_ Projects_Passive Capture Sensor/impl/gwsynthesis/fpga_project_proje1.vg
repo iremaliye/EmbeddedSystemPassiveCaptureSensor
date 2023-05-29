@@ -1,0 +1,47 @@
+//
+//Written by GowinSynthesis
+//Product Version "V1.9.8.11"
+//Mon May 22 10:14:59 2023
+
+//Source file index table:
+//file0 "\C:/Users/aylan/OneDrive/Belgeler/fpga_project_proje1/src/project1.v"
+`timescale 100 ps/100 ps
+module PIR_LED (
+  pir_sensor,
+  red_led,
+  green_led
+)
+;
+input pir_sensor;
+output red_led;
+output green_led;
+wire green_led_d;
+wire green_led_8;
+wire VCC;
+wire GND;
+  IBUF pir_sensor_ibuf (
+    .O(green_led_d),
+    .I(pir_sensor) 
+);
+  OBUF red_led_obuf (
+    .O(red_led),
+    .I(green_led_d) 
+);
+  OBUF green_led_obuf (
+    .O(green_led),
+    .I(green_led_8) 
+);
+  INV green_led_s5 (
+    .O(green_led_8),
+    .I(green_led_d) 
+);
+  VCC VCC_cZ (
+    .V(VCC)
+);
+  GND GND_cZ (
+    .G(GND)
+);
+  GSR GSR (
+    .GSRI(VCC) 
+);
+endmodule /* PIR_LED */
